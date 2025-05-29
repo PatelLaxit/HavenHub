@@ -1,0 +1,32 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-5">
+  <h2 class="mb-4">My Bookings</h2>
+
+  <% if (bookings.length === 0) { %>
+    <div class="alert alert-info">You have no bookings yet.</div>
+  <% } else { %>
+    <div class="row">
+      <% bookings.forEach(function(booking) { %>
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= booking.listing.title %></h5>
+              <p class="card-text">
+                <strong>Check-in:</strong> <%= booking.checkInFormatted %><br>
+                <strong>Check-out:</strong> <%= booking.checkOutFormatted %><br>
+                <strong>Guests:</strong> <%= booking.guests %><br>
+                <strong>Total Price:</strong> ₹<%= booking.totalPrice %>
+              </p>
+              <form action="/bookings/cancel/<%= booking._id %>" method="POST">
+                <button class="btn btn-danger">Cancel Booking</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>
